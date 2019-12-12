@@ -50,11 +50,21 @@ class ProductListBrandConnectorBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_BRAND_PRODUCT);
     }
 
+    /**
+     * @throws
+     *
+     * @return \Spryker\Zed\Product\Business\ProductFacadeInterface
+     */
     public function getProductFacade(): ProductFacadeInterface
     {
         return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_PRODUCT);
     }
 
+    /**
+     * @throws
+     *
+     * @return \Spryker\Zed\ProductList\Business\ProductListFacadeInterface
+     */
     public function getProductListFacade(): ProductListFacadeInterface
     {
         return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_PRODUCT_LIST);
