@@ -21,6 +21,8 @@ class ProductListBrandConnectorFacade extends AbstractFacade implements ProductL
      */
     public function addBrandRelationToProductList(ProductListTransfer $productListTransfer): ProductListTransfer
     {
-        return $this->getFactory()->createProductListExpander()->addBrandRelationToProductListTransfer($productListTransfer);
+        return $this->getFactory()
+            ->createProductListExpander()
+            ->addBrandRelationToProductListTransfer($productListTransfer);
     }
 }

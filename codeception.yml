@@ -1,4 +1,4 @@
-namespace: fond-of-spryker/product-list
+namespace: fond-of-spryker/product-list-brand-connector
 
 suites:
   unit:
@@ -18,4 +18,8 @@ paths:
 coverage:
   enabled: true
   include:
-    - src/*.php
+    - src/FondOfSpryker/*.php
+
+modules:
+  enabled:
+    - \FondOfCodeception\Module\Spryker

@@ -10,7 +10,7 @@ class ProductListBrandConnectorConfig extends AbstractBundleConfig
     /**
      * @return string
      */
-    public function getBrandProductAttribute()
+    public function getBrandProductAttribute(): string
     {
         return $this->get(ProductListBrandConnectorConstants::PRODUCT_ATTRIBUTE_BRAND, 'brand');
     }
