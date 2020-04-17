@@ -2,14 +2,12 @@
 
 namespace FondOfSpryker\Zed\ProductListBrandConnector\Business;
 
-use FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface;
-use FondOfSpryker\Zed\BrandProduct\Business\BrandProductFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpander;
 use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpanderInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorDependencyProvider;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use Spryker\Zed\Product\Business\ProductFacadeInterface;
-use Spryker\Zed\ProductList\Business\ProductListFacadeInterface;
 
 /**
  * @method \FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorConfig getConfig()
@@ -22,50 +20,23 @@ class ProductListBrandConnectorBusinessFactory extends AbstractBusinessFactory
     public function createProductListExpander(): ProductListExpanderInterface
     {
         return new ProductListExpander(
-            $this->getBrandFacade(),
             $this->getBrandProductFacade(),
-            $this->getProductFacade(),
-            $this->getProductListFacade(),
-            $this->getConfig()
+            $this->getProductListFacade()
         );
     }
 
     /**
-     * @throws
-     *
-     * @return \FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface
+     * @return \FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface
      */
-    public function getBrandFacade(): BrandFacadeInterface
-    {
-        return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_BRAND);
-    }
-
-    /**
-     * @throws
-     *
-     * @return \FondOfSpryker\Zed\BrandProduct\Business\BrandProductFacadeInterface
-     */
-    public function getBrandProductFacade(): BrandProductFacadeInterface
+    public function getBrandProductFacade(): ProductListBrandConnectorToBrandProductFacadeInterface
     {
         return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_BRAND_PRODUCT);
     }
 
     /**
-     * @throws
-     *
-     * @return \Spryker\Zed\Product\Business\ProductFacadeInterface
+     * @return \FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface
      */
-    public function getProductFacade(): ProductFacadeInterface
-    {
-        return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_PRODUCT);
-    }
-
-    /**
-     * @throws
-     *
-     * @return \Spryker\Zed\ProductList\Business\ProductListFacadeInterface
-     */
-    public function getProductListFacade(): ProductListFacadeInterface
+    public function getProductListFacade(): ProductListBrandConnectorToProductListFacadeInterface
     {
         return $this->getProvidedDependency(ProductListBrandConnectorDependencyProvider::FACADE_PRODUCT_LIST);
     }
