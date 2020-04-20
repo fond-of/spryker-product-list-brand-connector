@@ -1,18 +1,19 @@
 <?php
 
-namespace FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin;
+namespace FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin\ProductListExtension;
 
-use FondOfSpryker\Zed\ProductList\Dependency\Plugin\ProductListTransferExpanderPluginInterface;
+use FondOfSpryker\Zed\ProductListExtension\Dependency\Plugin\ProductListTransferExpanderPluginInterface;
 use Generated\Shared\Transfer\ProductListTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacadeInterface getFacade()
+ * @method \FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorConfig getConfig()
  */
 class BrandProductListTransferExpanderPlugin extends AbstractPlugin implements ProductListTransferExpanderPluginInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
