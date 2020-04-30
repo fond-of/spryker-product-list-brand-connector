@@ -2,30 +2,18 @@
 
 namespace FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander;
 
-use FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface;
-use FondOfSpryker\Zed\BrandProduct\Business\BrandProductFacadeInterface;
-use FondOfSpryker\Zed\Product\Business\ProductFacadeInterface;
-use FondOfSpryker\Zed\ProductList\Business\ProductListFacade;
-use FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorConfig;
+use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface;
 use Generated\Shared\Transfer\BrandRelationTransfer;
 use Generated\Shared\Transfer\ProductListTransfer;
 
 class ProductListExpander implements ProductListExpanderInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorConfig
-     */
-    protected $productListBrandConnectorConfig;
-
-    /**
-     * @var \FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface
-     */
-    protected $brandFacade;
-
-    /**
      * @var \FondOfSpryker\Zed\BrandProduct\Business\BrandProductFacadeInterface
      */
     protected $brandProductFacade;
+
     /**
      * @var \FondOfSpryker\Zed\Product\Business\ProductFacadeInterface
      */
@@ -37,25 +25,14 @@ class ProductListExpander implements ProductListExpanderInterface
     protected $productListFacade;
 
     /**
-     * ProductListExpander constructor.
-     *
-     * @param \FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface $brandFacade
-     * @param \FondOfSpryker\Zed\BrandProduct\Business\BrandProductFacadeInterface $brandProductFacade
-     * @param \FondOfSpryker\Zed\Product\Business\ProductFacadeInterface $productFacade
-     * @param \FondOfSpryker\Zed\ProductList\Business\ProductListFacade $productListFacade
-     * @param \FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorConfig $productListBrandConnectorConfig
+     * @param \FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface $brandProductFacade
+     * @param \FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface $productListFacade
      */
     public function __construct(
-        BrandFacadeInterface $brandFacade,
-        BrandProductFacadeInterface $brandProductFacade,
-        ProductFacadeInterface $productFacade,
-        ProductListFacade $productListFacade,
-        ProductListBrandConnectorConfig $productListBrandConnectorConfig
+        ProductListBrandConnectorToBrandProductFacadeInterface $brandProductFacade,
+        ProductListBrandConnectorToProductListFacadeInterface $productListFacade
     ) {
-        $this->productListBrandConnectorConfig = $productListBrandConnectorConfig;
-        $this->brandFacade = $brandFacade;
         $this->brandProductFacade = $brandProductFacade;
-        $this->productFacade = $productFacade;
         $this->productListFacade = $productListFacade;
     }
 
@@ -73,7 +50,7 @@ class ProductListExpander implements ProductListExpanderInterface
             $brandCollectionTransfer = $this->brandProductFacade->getBrandsByProductAbstractId($idProductAbstract);
 
             foreach ($brandCollectionTransfer->getBrands() as $brandTransfer) {
-                if (array_search($brandTransfer->getIdBrand(), $productListBrandIds) === false) {
+                if (!in_array($brandTransfer->getIdBrand(), $productListBrandIds, true)) {
                     $productListBrandIds[] = $brandTransfer->getIdBrand();
                 }
             }

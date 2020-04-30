@@ -1,4 +1,4 @@
-namespace: fond-of-spryker/product-list
+namespace: fond-of-spryker/product-list-brand-connector
 
 suites:
   unit:
