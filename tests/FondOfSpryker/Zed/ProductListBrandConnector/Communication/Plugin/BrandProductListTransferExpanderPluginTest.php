@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacadeInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin\ProductListExtension\BrandProductListTransferExpanderPlugin;
 use Generated\Shared\Transfer\ProductListTransfer;
 
 class BrandProductListTransferExpanderPluginTest extends Unit
