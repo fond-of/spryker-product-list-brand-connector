@@ -4,6 +4,8 @@ namespace FondOfSpryker\Zed\ProductListBrandConnector\Business;
 
 use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpander;
 use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpanderInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Business\Model\ProductListBrandRelationReader;
+use FondOfSpryker\Zed\ProductListBrandConnector\Business\Model\ProductListBrandRelationReaderInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorDependencyProvider;
@@ -20,6 +22,17 @@ class ProductListBrandConnectorBusinessFactory extends AbstractBusinessFactory
     public function createProductListExpander(): ProductListExpanderInterface
     {
         return new ProductListExpander(
+            $this->getBrandProductFacade(),
+            $this->getProductListFacade()
+        );
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\ProductListBrandConnector\Business\Model\ProductListBrandRelationReaderInterface
+     */
+    public function createProductListBrandRelationReader(): ProductListBrandRelationReaderInterface
+    {
+        return new ProductListBrandRelationReader(
             $this->getBrandProductFacade(),
             $this->getProductListFacade()
         );
