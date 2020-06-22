@@ -34,7 +34,7 @@ class ProductListBrandRelationReader implements ProductListBrandRelationReaderIn
     /**
      * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
      *
-     * @return \Generated\Shared\Transfer\BrandRelationTransfer
+     * @return \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
      */
     public function findProductListBrandRelationByIdProductList(
         ProductListTransfer $productListTransfer
