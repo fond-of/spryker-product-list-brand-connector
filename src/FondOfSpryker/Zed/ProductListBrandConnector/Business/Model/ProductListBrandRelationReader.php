@@ -10,12 +10,12 @@ use Generated\Shared\Transfer\ProductListTransfer;
 class ProductListBrandRelationReader implements ProductListBrandRelationReaderInterface
 {
     /**
-     * @var \FondOfSpryker\Zed\BrandProduct\Business\BrandProductFacadeInterface
+     * @var \FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface
      */
     protected $brandProductFacade;
 
     /**
-     * @var \FondOfSpryker\Zed\ProductList\Business\ProductListFacade
+     * @var \FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface
      */
     protected $productListFacade;
 
