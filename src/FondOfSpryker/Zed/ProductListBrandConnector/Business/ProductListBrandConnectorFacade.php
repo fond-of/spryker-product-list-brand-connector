@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class ProductListBrandConnectorFacade extends AbstractFacade implements ProductListBrandConnectorFacadeInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -27,7 +27,7 @@ class ProductListBrandConnectorFacade extends AbstractFacade implements ProductL
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
