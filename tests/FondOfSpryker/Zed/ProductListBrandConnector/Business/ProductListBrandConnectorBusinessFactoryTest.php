@@ -3,7 +3,8 @@
 namespace FondOfSpryker\Zed\ProductListBrandConnector\Business;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpanderInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpander;
+use FondOfSpryker\Zed\ProductListBrandConnector\Business\Model\ProductListBrandRelationReader;
 use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\ProductListBrandConnectorDependencyProvider;
@@ -72,8 +73,33 @@ class ProductListBrandConnectorBusinessFactoryTest extends Unit
             );
 
         $this->assertInstanceOf(
-            ProductListExpanderInterface::class,
+            ProductListExpander::class,
             $this->productListBrandConnectorBusinessFactory->createProductListExpander()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateProductListBrandRelationReader(): void
+    {
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('has')
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
+            ->withConsecutive(
+                [ProductListBrandConnectorDependencyProvider::FACADE_BRAND_PRODUCT],
+                [ProductListBrandConnectorDependencyProvider::FACADE_PRODUCT_LIST]
+            )->willReturnOnConsecutiveCalls(
+                $this->productListBrandConnectorToBrandProductFacadeInterfaceMock,
+                $this->productListBrandConnectorToProductListFacadeInterfaceMock
+            );
+
+        $this->assertInstanceOf(
+            ProductListBrandRelationReader::class,
+            $this->productListBrandConnectorBusinessFactory->createProductListBrandRelationReader()
         );
     }
 }
