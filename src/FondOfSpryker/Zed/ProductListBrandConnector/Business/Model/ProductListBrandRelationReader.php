@@ -34,11 +34,11 @@ class ProductListBrandRelationReader implements ProductListBrandRelationReaderIn
     /**
      * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
      *
-     * @return \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
+     * @return \Generated\Shared\Transfer\BrandRelationTransfer
      */
     public function findProductListBrandRelationByIdProductList(
         ProductListTransfer $productListTransfer
-    ): ProductListTransfer {
+    ): BrandRelationTransfer {
         $productAbstractIds = $this->productListFacade->getProductAbstractIdsByProductListIds([$productListTransfer->getIdProductList()]);
         $productListBrandIds = [];
 
@@ -52,12 +52,8 @@ class ProductListBrandRelationReader implements ProductListBrandRelationReaderIn
             }
         }
 
-        $brandRelationTransfer = (new BrandRelationTransfer())
+        return (new BrandRelationTransfer())
             ->setIdProductList($productListTransfer->getIdProductList())
             ->setIdBrands($productListBrandIds);
-
-        $productListTransfer->setBrandRelation($brandRelationTransfer);
-
-        return $productListTransfer;
     }
 }
