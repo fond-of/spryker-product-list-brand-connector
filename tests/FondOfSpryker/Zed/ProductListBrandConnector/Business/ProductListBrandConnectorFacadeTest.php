@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\ProductListBrandConnector\Business;
 
 use Codeception\Test\Unit;
 use FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpanderInterface;
+use FondOfSpryker\Zed\ProductListBrandConnector\Business\Model\ProductListBrandRelationReaderInterface;
 use Generated\Shared\Transfer\ProductListTransfer;
 
 class ProductListBrandConnectorFacadeTest extends Unit
@@ -26,7 +27,12 @@ class ProductListBrandConnectorFacadeTest extends Unit
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\ProductListBrandConnector\Business\Expander\ProductListExpanderInterface
      */
-    protected $productListExpanderInterfaceMock;
+    protected $productListExpanderfaceMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\ProductListBrandConnector\Business\Model\ProductListBrandRelationReaderInterface
+     */
+    protected $productListBrandRelationReaderMock;
 
     /**
      * @return void
@@ -41,7 +47,11 @@ class ProductListBrandConnectorFacadeTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->productListExpanderInterfaceMock = $this->getMockBuilder(ProductListExpanderInterface::class)
+        $this->productListExpanderfaceMock = $this->getMockBuilder(ProductListExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->productListBrandRelationReaderMock = $this->getMockBuilder(ProductListBrandRelationReaderInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -56,16 +66,38 @@ class ProductListBrandConnectorFacadeTest extends Unit
     {
         $this->productListBrandConnectorBusinessFactoryMock->expects($this->atLeastOnce())
             ->method('createProductListExpander')
-            ->willReturn($this->productListExpanderInterfaceMock);
+            ->willReturn($this->productListExpanderfaceMock);
 
-        $this->productListExpanderInterfaceMock->expects($this->atLeastOnce())
+        $this->productListExpanderfaceMock->expects($this->atLeastOnce())
             ->method('addBrandRelationToProductListTransfer')
             ->with($this->productListTransferMock)
             ->willReturn($this->productListTransferMock);
 
-        $this->assertInstanceOf(
-            ProductListTransfer::class,
+        $this->assertEquals(
+            $this->productListTransferMock,
             $this->productListBrandConnectorFacade->addBrandRelationToProductList(
+                $this->productListTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testFindProductListBrandRelationByIdProductList(): void
+    {
+        $this->productListBrandConnectorBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createProductListBrandRelationReader')
+            ->willReturn($this->productListBrandRelationReaderMock);
+
+        $this->productListBrandRelationReaderMock->expects($this->atLeastOnce())
+            ->method('findProductListBrandRelationByIdProductList')
+            ->with($this->productListTransferMock)
+            ->willReturn($this->productListTransferMock);
+
+        $this->assertEquals(
+            $this->productListTransferMock,
+            $this->productListBrandConnectorFacade->findProductListBrandRelationByIdProductList(
                 $this->productListTransferMock
             )
         );

@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\ProductListBrandConnector\Business;
 
+use Generated\Shared\Transfer\BrandRelationTransfer;
 use Generated\Shared\Transfer\ProductListTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -11,7 +12,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class ProductListBrandConnectorFacade extends AbstractFacade implements ProductListBrandConnectorFacadeInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      *
      * @api
      *
@@ -24,5 +25,20 @@ class ProductListBrandConnectorFacade extends AbstractFacade implements ProductL
         return $this->getFactory()
             ->createProductListExpander()
             ->addBrandRelationToProductListTransfer($productListTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
+     * @return \Generated\Shared\Transfer\BrandRelationTransfer
+     */
+    public function findProductListBrandRelationByIdProductList(ProductListTransfer $productListTransfer): BrandRelationTransfer
+    {
+        return $this->getFactory()
+            ->createProductListBrandRelationReader()
+            ->findProductListBrandRelationByIdProductList($productListTransfer);
     }
 }
