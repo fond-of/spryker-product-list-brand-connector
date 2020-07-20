@@ -33,6 +33,7 @@ class ProductListBrandConnectorFacade extends AbstractFacade implements ProductL
      * @api
      *
      * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
+     *
      * @return \Generated\Shared\Transfer\BrandRelationTransfer
      */
     public function findProductListBrandRelationByIdProductList(ProductListTransfer $productListTransfer): BrandRelationTransfer
