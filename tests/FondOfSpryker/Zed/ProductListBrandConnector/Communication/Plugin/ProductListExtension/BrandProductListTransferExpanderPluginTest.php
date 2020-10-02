@@ -1,16 +1,16 @@
 <?php
 
-namespace FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin;
+namespace FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin\ProductListExtension;
 
 use Codeception\Test\Unit;
-use FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacadeInterface;
-use FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin\ProductListExtension\BrandProductListTransferExpanderPlugin;
+use FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacade;
 use Generated\Shared\Transfer\ProductListTransfer;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 class BrandProductListTransferExpanderPluginTest extends Unit
 {
     /**
-     * @var \FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin\BrandProductListTransferExpanderPlugin
+     * @var \FondOfSpryker\Zed\ProductListBrandConnector\Communication\Plugin\ProductListExtension\BrandProductListTransferExpanderPlugin
      */
     protected $brandProductListTransferExpanderPlugin;
 
@@ -29,7 +29,7 @@ class BrandProductListTransferExpanderPluginTest extends Unit
      */
     protected function _before(): void
     {
-        $this->productListBrandConnectorFacadeInterfaceMock = $this->getMockBuilder(ProductListBrandConnectorFacadeInterface::class)
+        $this->productListBrandConnectorFacadeInterfaceMock = $this->getMockBuilder(ProductListBrandConnectorFacade::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -41,22 +41,22 @@ class BrandProductListTransferExpanderPluginTest extends Unit
             $this->productListBrandConnectorFacadeInterfaceMock
         ) extends BrandProductListTransferExpanderPlugin {
             /**
-             * @var \FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacadeInterface
+             * @var \FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacade
              */
             protected $productListBrandConnectorFacade;
 
             /**
-             * @param \FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacadeInterface $productListBrandConnectorFacade
+             * @param \FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacade $productListBrandConnectorFacade
              */
-            public function __construct(ProductListBrandConnectorFacadeInterface $productListBrandConnectorFacade)
+            public function __construct(ProductListBrandConnectorFacade $productListBrandConnectorFacade)
             {
                 $this->productListBrandConnectorFacade = $productListBrandConnectorFacade;
             }
 
             /**
-             * @return \FondOfSpryker\Zed\ProductListBrandConnector\Business\ProductListBrandConnectorFacadeInterface
+             * @return \Spryker\Zed\Kernel\Business\AbstractFacade
              */
-            public function getFacade(): ProductListBrandConnectorFacadeInterface
+            protected function getFacade(): AbstractFacade
             {
                 return $this->productListBrandConnectorFacade;
             }
