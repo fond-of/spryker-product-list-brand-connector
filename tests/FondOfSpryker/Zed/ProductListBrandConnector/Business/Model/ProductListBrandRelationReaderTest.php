@@ -6,7 +6,6 @@ use Codeception\Test\Unit;
 use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToBrandProductFacadeInterface;
 use FondOfSpryker\Zed\ProductListBrandConnector\Dependency\Facade\ProductListBrandConnectorToProductListFacadeInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
-use Generated\Shared\Transfer\BrandRelationTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Generated\Shared\Transfer\ProductListTransfer;
 
@@ -123,22 +122,10 @@ class ProductListBrandRelationReaderTest extends Unit
             ->method('getIdBrand')
             ->willReturn($this->idBrand);
 
-        $self = $this;
-
-        $this->productListTransferMock->expects($this->atLeastOnce())
-            ->method('setBrandRelation')
-            ->with(
-                $this->callback(
-                    static function (BrandRelationTransfer $brandRelationTransfer) use ($self) {
-                        return $brandRelationTransfer->getIdProductList() === $self->idProductList
-                            && $brandRelationTransfer->getIdBrands() === [$self->idBrand];
-                    }
-                )
-            )->willReturn($this->productListTransferMock);
-
-        $productListTransfer = $this->productListBrandRelationReader
+        $brandRelationTransfer = $this->productListBrandRelationReader
             ->findProductListBrandRelationByIdProductList($this->productListTransferMock);
 
-        $this->assertEquals($this->productListTransferMock, $productListTransfer);
+        $this->assertEquals([$this->idBrand], $brandRelationTransfer->getIdBrands());
+        $this->assertEquals($this->idProductList, $brandRelationTransfer->getIdProductList());
     }
 }
